@@ -7,7 +7,7 @@ const init = () => {
     "For start application you must pass your username.\nPlease run the application with the command:  npm run start -- --username=your_username";
   let userName = "";
   process.on("exit", () => {
-    stdout.write(exit_message);
+    stdout.write(`\n${exit_message}\n`);
   });
 
   process.on("SIGINT", () => process.exit());

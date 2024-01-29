@@ -19,8 +19,13 @@ while (true) {
   }
 
   try {
-    commands[answer]();
-  } catch {
-    console.error(ERROR.INVALID_INPUT);
+    const [command, ...args] = answer.split(" ");
+    await commands[command](...args);
+  } catch (err) {
+    console.error(
+      err.message === ERROR.OPERATION_FAILED
+        ? ERROR.OPERATION_FAILED
+        : ERROR.INVALID_INPUT
+    );
   }
 }

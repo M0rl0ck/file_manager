@@ -1,13 +1,16 @@
 import { stdout } from "node:process";
+import { directory } from "../cwd/cwd.js";
 
 const tempCommand = () => {
   stdout.write("\ndddd\n");
 };
 
 const commands = {
-  ls: tempCommand,
-  cd: tempCommand,
-  up: tempCommand,
+  ls: directory.ls,
+  cd: async (arg) => {
+    await directory.cd(arg);
+  },
+  up: directory.up,
   cat: tempCommand,
   add: tempCommand,
   rn: tempCommand,
