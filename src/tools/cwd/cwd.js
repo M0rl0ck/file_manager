@@ -3,7 +3,7 @@ import path from "node:path";
 import { access, constants, readdir, stat } from "node:fs/promises";
 import { ERROR } from "../../constants/errors.js";
 
-class workingDirectory {
+class WorkingDirectory {
   constructor() {
     this._currentDirectory = homedir();
   }
@@ -59,4 +59,4 @@ class workingDirectory {
   };
 }
 
-export const directory = new workingDirectory();
+export { WorkingDirectory };

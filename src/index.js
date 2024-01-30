@@ -1,31 +1,10 @@
-import { stdin, stdout } from "node:process";
-import { directory } from "./tools/cwd/cwd.js";
-import readline from "node:readline/promises";
 import { init } from "./tools/utils/startUtils.js";
-import { commands } from "./tools/commands/commands.js";
-import { ERROR } from "./constants/errors.js";
-import { log } from "node:console";
+import { WorkingDirectory } from "./tools/cwd/cwd.js";
+import { FS } from "./tools/fs/fs.js";
+import { start } from "./tools/utils/startReadline.js";
 
 const userName = init();
+const directory = new WorkingDirectory();
+const fileSystem = new FS(directory);
 
-const rl = readline.createInterface(stdin, stdout);
-while (true) {
-  const answer = await rl.question(
-    `You are currently in ${directory.currentDirectory}\n\n>`
-  );
-
-  if (answer.trim() === ".exit") {
-    process.exit();
-  }
-
-  try {
-    const [command, ...args] = answer.split(" ");
-    await commands[command](...args);
-  } catch (err) {
-    console.error(
-      err.message === ERROR.OPERATION_FAILED
-        ? ERROR.OPERATION_FAILED
-        : ERROR.INVALID_INPUT
-    );
-  }
-}
+await start({ directory, fileSystem });
