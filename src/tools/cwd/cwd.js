@@ -29,22 +29,29 @@ class WorkingDirectory {
 
   ls = async () => {
     try {
-      const filesList = await readdir(this._currentDirectory);
+      const filesList = await readdir(this._currentDirectory, {
+        withFileTypes: true,
+      });
 
       const sortedList = filesList.sort((a, b) =>
-        a.toUpperCase() < b.toUpperCase() ? -1 : 1
+        a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1
       );
-      const [dirs, files] = [[], []];
-      for (const file of sortedList) {
-        const status = await stat(path.join(this._currentDirectory, file));
-        if (status.isDirectory()) {
-          dirs.push({ Name: file, Type: "directory" });
-        } else {
-          files.push({ Name: file, Type: "file" });
-        }
-      }
+      const [dirs, files] = sortedList.reduce(
+        (acc, file) => {
+          if (file.isDirectory()) {
+            acc[0].push({ Name: file.name, Type: "directory" });
+          } else if (file.isSymbolicLink()) {
+            acc[0].push({ Name: file.name, Type: "Symbolic Link" });
+          } else if (file.isFile()) {
+            acc[1].push({ Name: file.name, Type: "file" });
+          }
+          return acc;
+        },
+        [[], []]
+      );
       console.table([...dirs, ...files]);
     } catch (e) {
+      console.error(e.message);
       throw new Error(ERROR.OPERATION_FAILED);
     }
   };

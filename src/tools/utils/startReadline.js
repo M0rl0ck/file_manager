@@ -9,13 +9,9 @@ const start = async ({ directory, fileSystem }) => {
 
   const commands = {
     ls: directory.ls,
-    cd: async (arg) => {
-      await directory.cd(arg);
-    },
+    cd: directory.cd,
     up: directory.up,
-    cat: async (pathToFile) => {
-      await fileSystem.cat(pathToFile);
-    },
+    cat: fileSystem.cat,
     add: tempCommand,
     rn: tempCommand,
     cp: tempCommand,
