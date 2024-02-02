@@ -19,17 +19,25 @@ class WorkingDirectory {
     this._currentDirectory = path.resolve(this._currentDirectory, "..");
   };
 
-  cd = async (newPatch) => {
-    const newDirectory = path.resolve(this._currentDirectory, newPatch);
+  cd = async (...newPatch) => {
+    const newDirectory = path.resolve(
+      this._currentDirectory,
+      newPatch.join(" ")
+    );
+    console.log(newDirectory);
     const isExist = await this.isFileExist(newDirectory);
     if (isExist) {
       this._currentDirectory = newDirectory;
     } else throw new Error(ERROR.OPERATION_FAILED);
   };
 
-  ls = async () => {
+  ls = async (...newPatch) => {
     try {
-      const filesList = await readdir(this._currentDirectory, {
+      const pathToDirectory = path.resolve(
+        this._currentDirectory,
+        newPatch.join(" ")
+      );
+      const filesList = await readdir(pathToDirectory, {
         withFileTypes: true,
       });
 

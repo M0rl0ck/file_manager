@@ -18,10 +18,10 @@ class FS {
   constructor(cwd) {
     this.cwd = cwd;
   }
-  cat = async (pathToFile = "") => {
+  cat = async (...pathToFile) => {
     const patchToReadingFile = path.resolve(
       this.cwd.currentDirectory,
-      pathToFile
+      pathToFile.join(" ")
     );
     console.log(patchToReadingFile);
     try {

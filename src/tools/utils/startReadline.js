@@ -7,6 +7,18 @@ const start = async ({ directory, fileSystem }) => {
     stdout.write("\ndddd\n");
   };
 
+  const parseArgs = (args) => {
+    if (args.some((el) => el.search(/['"]/) + 1)) {
+      console.log("parse");
+      return args
+        .join(" ")
+        .split(/['"]/)
+        .filter((el) => !!el.trim())
+        .map((el) => el.trim());
+    }
+    return args;
+  };
+
   const commands = {
     ls: directory.ls,
     cd: directory.cd,
@@ -35,7 +47,7 @@ const start = async ({ directory, fileSystem }) => {
 
     try {
       const [command, ...args] = answer.split(" ");
-      await commands[command](...args);
+      await commands[command](...parseArgs(args));
     } catch (err) {
       console.error(
         err.message === ERROR.OPERATION_FAILED
