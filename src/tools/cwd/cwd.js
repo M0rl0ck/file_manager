@@ -1,11 +1,10 @@
-import { homedir } from "node:os";
 import path from "node:path";
 import { access, constants, readdir } from "node:fs/promises";
 import { ERROR } from "../../constants/errors.js";
 
 class WorkingDirectory {
-  constructor() {
-    this._currentDirectory = homedir();
+  constructor(homedir) {
+    this._currentDirectory = homedir;
   }
   get currentDirectory() {
     return this._currentDirectory;

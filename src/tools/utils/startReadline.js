@@ -2,9 +2,9 @@ import { ERROR } from "../../constants/errors.js";
 import { stdin, stdout } from "node:process";
 import readline from "node:readline/promises";
 
-const start = async ({ directory, fileSystem }) => {
+const start = async ({ directory, fileSystem, osData }) => {
   const tempCommand = () => {
-    stdout.write("\ndddd\n");
+    stdout.write("\nCommand\n");
   };
 
   const parseArgs = (args) => {
@@ -28,7 +28,7 @@ const start = async ({ directory, fileSystem }) => {
     cp: fileSystem.cp,
     mv: fileSystem.mv,
     rm: fileSystem.rm,
-    os: tempCommand,
+    os: osData.getOsData,
     hash: tempCommand,
     compress: tempCommand,
     decompress: tempCommand,
