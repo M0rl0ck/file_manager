@@ -1,6 +1,6 @@
 import { homedir } from "node:os";
 import path from "node:path";
-import { access, constants, readdir, stat } from "node:fs/promises";
+import { access, constants, readdir } from "node:fs/promises";
 import { ERROR } from "../../constants/errors.js";
 
 class WorkingDirectory {
@@ -20,23 +20,16 @@ class WorkingDirectory {
   };
 
   cd = async (...newPatch) => {
-    const newDirectory = path.resolve(
-      this._currentDirectory,
-      newPatch.join(" ")
-    );
-    console.log(newDirectory);
-    const isExist = await this.isFileExist(newDirectory);
-    if (isExist) {
+    const newDirectory = this.getPathWithSpace(newPatch);
+    const isDirExist = await this.isPathExist(newDirectory);
+    if (isDirExist) {
       this._currentDirectory = newDirectory;
     } else throw new Error(ERROR.OPERATION_FAILED);
   };
 
   ls = async (...newPatch) => {
     try {
-      const pathToDirectory = path.resolve(
-        this._currentDirectory,
-        newPatch.join(" ")
-      );
+      const pathToDirectory = this.getPathWithSpace(newPatch);
       const filesList = await readdir(pathToDirectory, {
         withFileTypes: true,
       });
@@ -64,7 +57,16 @@ class WorkingDirectory {
     }
   };
 
-  isFileExist = async (pathToFile) => {
+  getPath = (...newPatch) => {
+    return path.resolve(this._currentDirectory, ...newPatch);
+  };
+  getPathWithSpace = (newPatch) => {
+    return newPatch
+      ? path.resolve(this._currentDirectory, newPatch.join(" "))
+      : this._currentDirectory;
+  };
+
+  isPathExist = async (pathToFile) => {
     try {
       await access(pathToFile, constants.F_OK);
       return true;

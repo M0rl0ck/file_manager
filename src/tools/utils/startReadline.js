@@ -9,7 +9,6 @@ const start = async ({ directory, fileSystem }) => {
 
   const parseArgs = (args) => {
     if (args.some((el) => el.search(/['"]/) + 1)) {
-      console.log("parse");
       return args
         .join(" ")
         .split(/['"]/)
@@ -24,11 +23,11 @@ const start = async ({ directory, fileSystem }) => {
     cd: directory.cd,
     up: directory.up,
     cat: fileSystem.cat,
-    add: tempCommand,
-    rn: tempCommand,
-    cp: tempCommand,
-    mv: tempCommand,
-    rm: tempCommand,
+    add: fileSystem.add,
+    rn: fileSystem.rn,
+    cp: fileSystem.cp,
+    mv: fileSystem.mv,
+    rm: fileSystem.rm,
     os: tempCommand,
     hash: tempCommand,
     compress: tempCommand,
@@ -38,7 +37,7 @@ const start = async ({ directory, fileSystem }) => {
   const rl = readline.createInterface(stdin, stdout);
   while (true) {
     const answer = await rl.question(
-      `You are currently in ${directory.currentDirectory}\n\n>`
+      `\nYou are currently in ${directory.currentDirectory}\n\n>`
     );
 
     if (answer.trim() === ".exit") {
