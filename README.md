@@ -1,1 +1,42 @@
 # file_manager
+
+### This repository is the part of [nodejs-assignments](https://github.com/AlreadyBored/nodejs-assignments)
+
+## Setup and Running
+
+### Clone this repository:
+
+`$ git clone https://github.com/M0rl0ck/file_manager.git`
+
+### Go to branch develop:
+
+`$ git checkout develop`
+
+### Running the app
+
+`$ npm run start -- --username=your_username`
+
+### Working with paths containing spaces
+
+If the path contains spaces, you must wrap it in quotes `'` or `"`
+
+#### Example:
+
+`cat 'dir/path with spaces/file name with spaces'`,  
+ `cp "dir/path with spaces/file name with spaces" "dir/path with spaces/dir name with spaces"`,
+
+The second parameter can be left unwrapped:
+
+`mv "dir/path with spaces/file name with spaces" dir/path with spaces/dir name with spaces`
+
+If a command takes one parameter, it can be left unwrapped:
+
+`ls dir/path with spaces/dir name with spaces`
+
+### Commands:
+
+`cp`, `mv` take a path to the directory as the second parameter.
+
+`compress` and `decompress` take a path to the new file as the second parameter.
+
+`ls` can accept a directory path as a parameter. If the parameter is not received, the current directory will be read.
