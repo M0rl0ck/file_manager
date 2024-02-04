@@ -20,16 +20,12 @@ If a parameter is not received or an invalid parameter is received, the applicat
 
 ### Working with paths containing spaces
 
-If the path contains spaces, you must wrap it in quotes `'` or `"`
+If the path contains spaces, you must wrap it in double quotes - `"`
 
 #### Example:
 
 `cat 'dir/path with spaces/file name with spaces'`,  
  `cp "dir/path with spaces/file name with spaces" "dir/path with spaces/dir name with spaces"`,
-
-The second parameter can be left unwrapped:
-
-`mv "dir/path with spaces/file name with spaces" dir/path with spaces/dir name with spaces`
 
 If a command takes one parameter, it can be left unwrapped:
 

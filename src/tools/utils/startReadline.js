@@ -10,14 +10,14 @@ const start = async ({
   archiver,
 }) => {
   const parseArgs = (args) => {
-    if (args.some((el) => el.search(/['"]/) + 1)) {
-      return args
+    let parsedArgs = [...args];
+    if (args.some((el) => el.includes('"'))) {
+      parsedArgs = args
         .join(" ")
-        .split(/['"]/)
-        .filter((el) => !!el.trim())
-        .map((el) => el.trim());
+        .split('"')
+        .filter((el) => el.trim());
     }
-    return args;
+    return parsedArgs;
   };
 
   const commands = {

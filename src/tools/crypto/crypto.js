@@ -13,14 +13,12 @@ class Crypto {
   calculateHash = async (...pathToFile) => {
     try {
       const pathToCalculatingFile = this.cwd.getPath(...pathToFile);
-      console.log(pathToCalculatingFile);
       const hash = createHash("sha256");
       const input = createReadStream(pathToCalculatingFile);
       stdout.write(`\n File ${pathToFile} hash: `);
       await pipeline(input, hash.setEncoding("hex"), createCustomStdOut());
       stdout.write("\n");
-    } catch (e) {
-      console.log(e.message);
+    } catch {
       throw new Error(ERROR.OPERATION_FAILED);
     }
   };
