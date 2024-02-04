@@ -2,11 +2,13 @@ import { ERROR } from "../../constants/errors.js";
 import { stdin, stdout } from "node:process";
 import readline from "node:readline/promises";
 
-const start = async ({ directory, fileSystem, osData, crypto, archive }) => {
-  const tempCommand = () => {
-    stdout.write("\nCommand\n");
-  };
-
+const start = async ({
+  workingDirectory,
+  fileSystem,
+  osData,
+  crypto,
+  archiver,
+}) => {
   const parseArgs = (args) => {
     if (args.some((el) => el.search(/['"]/) + 1)) {
       return args
@@ -19,9 +21,9 @@ const start = async ({ directory, fileSystem, osData, crypto, archive }) => {
   };
 
   const commands = {
-    ls: directory.ls,
-    cd: directory.cd,
-    up: directory.up,
+    ls: workingDirectory.ls,
+    cd: workingDirectory.cd,
+    up: workingDirectory.up,
     cat: fileSystem.cat,
     add: fileSystem.add,
     rn: fileSystem.rn,
@@ -30,14 +32,14 @@ const start = async ({ directory, fileSystem, osData, crypto, archive }) => {
     rm: fileSystem.rm,
     os: osData.getOsData,
     hash: crypto.calculateHash,
-    compress: archive.compress,
-    decompress: archive.decompress,
+    compress: archiver.compress,
+    decompress: archiver.decompress,
   };
 
   const rl = readline.createInterface(stdin, stdout);
   while (true) {
     const answer = await rl.question(
-      `\nYou are currently in ${directory.currentDirectory}\n\n>`
+      `\nYou are currently in ${workingDirectory.currentDirectory}\n\n>`
     );
 
     if (answer.trim() === ".exit") {

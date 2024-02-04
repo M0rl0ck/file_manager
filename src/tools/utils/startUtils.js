@@ -29,8 +29,6 @@ const init = () => {
       process.exit();
     }
   }
-
-  return userName;
 };
 
 export { init };

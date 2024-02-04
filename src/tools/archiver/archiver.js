@@ -3,7 +3,7 @@ import { createBrotliCompress, createBrotliDecompress } from "node:zlib";
 import { ERROR } from "../../constants/errors.js";
 import { pipeline } from "node:stream/promises";
 
-class Archive {
+class Archiver {
   constructor(cwd) {
     this.cwd = cwd;
   }
@@ -35,4 +35,4 @@ class Archive {
   };
 }
 
-export { Archive };
+export { Archiver };

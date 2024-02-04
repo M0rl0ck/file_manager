@@ -36,8 +36,6 @@ class WorkingDirectory {
         (acc, file) => {
           if (file.isDirectory()) {
             acc[0].push({ Name: file.name, Type: "directory" });
-          } else if (file.isSymbolicLink()) {
-            acc[0].push({ Name: file.name, Type: "Symbolic Link" });
           } else if (file.isFile()) {
             acc[1].push({ Name: file.name, Type: "file" });
           }
