@@ -1,14 +1,10 @@
-import os from "node:os";
+import { homedir, EOL, cpus, userInfo, arch } from "node:os";
 import { stdout } from "node:process";
 import { ERROR } from "../../constants/errors.js";
 
-const tempCommand = () => {
-  console.log("\nOssssss \n");
-};
-
 class OsData {
   constructor() {
-    this.homedir = os.homedir();
+    this.homedir = homedir();
     this.command = {
       EOL: this.getEOL,
       cpus: this.getCpus,
@@ -26,13 +22,13 @@ class OsData {
   };
   getEOL = () => {
     if (!this.EOL) {
-      this.EOL = JSON.stringify(os.EOL);
+      this.EOL = JSON.stringify(EOL);
     }
     stdout.write(`\n${this.EOL}\n`);
   };
   getCpus = () => {
     if (!this.cpus) {
-      this.cpus = os.cpus().map(({ model, speed }) => ({
+      this.cpus = cpus().map(({ model, speed }) => ({
         Model: model,
         Speed: `${speed / 1000} GHz`,
       }));
@@ -45,13 +41,13 @@ class OsData {
   };
   getUsername = () => {
     if (!this.username) {
-      this.username = os.userInfo().username;
+      this.username = userInfo().username;
     }
     stdout.write(`\nUser name: ${this.username}\n`);
   };
   getArchitecture = () => {
     if (!this.architecture) {
-      this.architecture = os.arch();
+      this.architecture = arch();
     }
     stdout.write(`\n ${this.architecture}\n`);
   };

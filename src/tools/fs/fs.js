@@ -3,17 +3,8 @@ import { writeFile, rename, rm as del } from "node:fs/promises";
 import { stdout } from "node:process";
 import { ERROR } from "../../constants/errors.js";
 import { pipeline } from "node:stream/promises";
-import { Writable } from "node:stream";
 import path from "node:path";
-
-const customStdOut = () =>
-  new Writable({
-    decodeStrings: false,
-    write(chunk, encoding, callback) {
-      stdout.write(chunk);
-      callback();
-    },
-  });
+import { createCustomStdOut } from "../utils/customStdOut.js";
 
 class FS {
   constructor(cwd) {
@@ -25,7 +16,7 @@ class FS {
     try {
       const input = createReadStream(pathToReadingFile, { encoding: "utf-8" });
       stdout.write("\n");
-      await pipeline(input, customStdOut());
+      await pipeline(input, createCustomStdOut());
       stdout.write("\n");
     } catch {
       throw new Error(ERROR.OPERATION_FAILED);

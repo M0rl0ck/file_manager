@@ -2,7 +2,7 @@ import { ERROR } from "../../constants/errors.js";
 import { stdin, stdout } from "node:process";
 import readline from "node:readline/promises";
 
-const start = async ({ directory, fileSystem, osData }) => {
+const start = async ({ directory, fileSystem, osData, crypto, archive }) => {
   const tempCommand = () => {
     stdout.write("\nCommand\n");
   };
@@ -29,9 +29,9 @@ const start = async ({ directory, fileSystem, osData }) => {
     mv: fileSystem.mv,
     rm: fileSystem.rm,
     os: osData.getOsData,
-    hash: tempCommand,
-    compress: tempCommand,
-    decompress: tempCommand,
+    hash: crypto.calculateHash,
+    compress: archive.compress,
+    decompress: archive.decompress,
   };
 
   const rl = readline.createInterface(stdin, stdout);
