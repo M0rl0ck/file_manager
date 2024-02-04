@@ -49,6 +49,10 @@ class FS {
   cp = async (pathToFile, pathToNewDir) => {
     try {
       const pathToSourceFile = this.cwd.getPath(pathToFile);
+      const isFileExist = await this.cwd.isPathExist(pathToSourceFile);
+      if (!isFileExist) {
+        throw new Error();
+      }
       const nameFile = path.basename(pathToSourceFile);
       const pathToDestinationFile = this.cwd.getPath(pathToNewDir, nameFile);
 
