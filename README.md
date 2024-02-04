@@ -16,6 +16,8 @@
 
 `$ npm run start -- --username=your_username`
 
+If a parameter is not received or an invalid parameter is received, the application displays a message with an example of the correct command and stops.
+
 ### Working with paths containing spaces
 
 If the path contains spaces, you must wrap it in quotes `'` or `"`
