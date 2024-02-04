@@ -55,8 +55,12 @@ class WorkingDirectory {
   };
 
   getPathWithSpace = (newPatch) => {
+    let resolvedPath = newPatch.join(" ");
+    if (resolvedPath.endsWith(":")) {
+      resolvedPath += "/";
+    }
     return newPatch
-      ? path.resolve(this._currentDirectory, newPatch.join(" "))
+      ? path.resolve(this._currentDirectory, resolvedPath)
       : this._currentDirectory;
   };
 
