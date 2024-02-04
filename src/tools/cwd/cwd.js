@@ -10,10 +10,6 @@ class WorkingDirectory {
     return this._currentDirectory;
   }
 
-  set currentDirectory(patch) {
-    this._currentDirectory = patch;
-  }
-
   up = () => {
     this._currentDirectory = path.resolve(this._currentDirectory, "..");
   };
@@ -59,6 +55,7 @@ class WorkingDirectory {
   getPath = (...newPatch) => {
     return path.resolve(this._currentDirectory, ...newPatch);
   };
+
   getPathWithSpace = (newPatch) => {
     return newPatch
       ? path.resolve(this._currentDirectory, newPatch.join(" "))

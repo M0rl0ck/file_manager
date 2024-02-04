@@ -10,6 +10,7 @@ class FS {
   constructor(cwd) {
     this.cwd = cwd;
   }
+
   cat = async (...pathToFile) => {
     const pathToReadingFile = this.cwd.getPathWithSpace(pathToFile);
 
@@ -22,6 +23,7 @@ class FS {
       throw new Error(ERROR.OPERATION_FAILED);
     }
   };
+
   add = async (...pathToFile) => {
     const pathToNewFile = this.cwd.getPathWithSpace(pathToFile);
     try {
@@ -30,6 +32,7 @@ class FS {
       throw new Error(ERROR.OPERATION_FAILED);
     }
   };
+
   rn = async (pathToFile, pathToNewFile) => {
     const pathToSourceFile = this.cwd.getPath(pathToFile);
     const pathToDestinationFile = this.cwd.getPath(pathToNewFile);
@@ -42,6 +45,7 @@ class FS {
       throw new Error(ERROR.OPERATION_FAILED);
     }
   };
+
   cp = async (pathToFile, pathToNewDir) => {
     try {
       const pathToSourceFile = this.cwd.getPath(pathToFile);
@@ -55,6 +59,7 @@ class FS {
       throw new Error(ERROR.OPERATION_FAILED);
     }
   };
+
   rm = async (...pathToFile) => {
     try {
       const pathToDeletingFile = this.cwd.getPathWithSpace(pathToFile);
@@ -63,6 +68,7 @@ class FS {
       throw new Error(ERROR.OPERATION_FAILED);
     }
   };
+
   mv = async (pathToFile, pathToNewDir) => {
     try {
       await this.cp(pathToFile, pathToNewDir);

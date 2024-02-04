@@ -7,6 +7,7 @@ class Archive {
   constructor(cwd) {
     this.cwd = cwd;
   }
+
   compress = async (pathToFile, pathToNewFile) => {
     try {
       const { input, output } = this.getStreams(pathToFile, pathToNewFile);
@@ -24,6 +25,7 @@ class Archive {
       throw new Error(ERROR.OPERATION_FAILED);
     }
   };
+
   getStreams = (pathToFile, pathToNewFile) => {
     const pathToSourceFile = this.cwd.getPath(pathToFile);
     const pathToDestinationFile = this.cwd.getPath(pathToNewFile);

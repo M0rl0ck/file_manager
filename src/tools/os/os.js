@@ -13,6 +13,7 @@ class OsData {
       architecture: this.getArchitecture,
     };
   }
+
   getOsData = async (arg) => {
     try {
       this.command[arg.slice(2)]();
@@ -20,12 +21,14 @@ class OsData {
       throw new Error(ERROR.OPERATION_FAILED);
     }
   };
+
   getEOL = () => {
     if (!this.EOL) {
       this.EOL = JSON.stringify(EOL);
     }
     stdout.write(`\n${this.EOL}\n`);
   };
+
   getCpus = () => {
     if (!this.cpus) {
       this.cpus = cpus().map(({ model, speed }) => ({
@@ -36,15 +39,18 @@ class OsData {
     stdout.write(`\nMachine has ${this.cpus.length} CPUs.\n`);
     console.table(this.cpus);
   };
+
   getHomedir = () => {
     stdout.write(`\nHome dir is: ${this.homedir}\n`);
   };
+
   getUsername = () => {
     if (!this.username) {
       this.username = userInfo().username;
     }
     stdout.write(`\nUser name: ${this.username}\n`);
   };
+
   getArchitecture = () => {
     if (!this.architecture) {
       this.architecture = arch();
