@@ -1,6 +1,7 @@
 import { ERROR } from "../../constants/errors.js";
 import { stdin, stdout } from "node:process";
 import readline from "node:readline/promises";
+import { parseArgs } from "./parseArgs.js";
 
 const start = async ({
   workingDirectory,
@@ -9,17 +10,6 @@ const start = async ({
   crypto,
   archiver,
 }) => {
-  const parseArgs = (args) => {
-    let parsedArgs = [...args];
-    if (args.some((el) => el.includes('"'))) {
-      parsedArgs = args
-        .join(" ")
-        .split('"')
-        .filter((el) => el.trim());
-    }
-    return parsedArgs;
-  };
-
   const commands = {
     ls: workingDirectory.ls,
     cd: workingDirectory.cd,
