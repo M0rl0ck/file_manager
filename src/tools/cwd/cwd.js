@@ -44,8 +44,7 @@ class WorkingDirectory {
         [[], []]
       );
       console.table([...dirs, ...files]);
-    } catch (e) {
-      console.error(e.message);
+    } catch {
       throw new Error(ERROR.OPERATION_FAILED);
     }
   };

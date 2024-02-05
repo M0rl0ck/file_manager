@@ -11,6 +11,7 @@ const parseArgs = (args) => {
   for (let i = 0; i < stringFromArgs.length; i++) {
     switch (stringFromArgs[i]) {
       case '"': {
+        //opening or closing quotation mark ?
         isQuotesSet = !isQuotesSet;
         break;
       }
@@ -19,7 +20,8 @@ const parseArgs = (args) => {
         if (isQuotesSet) {
           tmpArg += " ";
         } else {
-          if (isDivide === false) {
+          //first space is divider between params
+          if (!isDivide) {
             if (tmpArg) {
               parsedArgs.push(tmpArg);
               tmpArg = "";
